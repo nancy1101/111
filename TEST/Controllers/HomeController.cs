@@ -29,6 +29,8 @@ namespace TEST.Controllers {
         public IActionResult Index() 
         {
             Contract.Ensures(Contract.Result<IActionResult>() != null);
+
+            //關閉憑證驗證
             ServicePointManager.ServerCertificateValidationCallback =
             delegate (object s, X509Certificate certificate,
             X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
@@ -36,6 +38,7 @@ namespace TEST.Controllers {
             string uri = "https://api-search.sit.kkday.com/v1/search/prod?lang=en&currency=USD";                                       
                        
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            //加上header的key值
             request.Headers.Add("x-auth-key", "kkdaysearchapi_Rfd_fsg+x+TcJy");
            
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();           
